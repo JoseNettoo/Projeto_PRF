@@ -1,0 +1,22 @@
+version: '3.8'  
+
+services:
+  postgres_data:
+    image: postgres:13.3
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "dw_projeto_datalab", "-U", "postgres"]
+      interval: 10s
+      timeout: 45s
+      retries: 10
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: net1310
+      POSTGRES_DB: dw_projeto_datalab
+      APP_DB_USER: docker
+      APP_DB_PASS: docker
+      APP_DB_NAME: docker
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
